@@ -19,16 +19,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.draw.clip
-import androidx.compose.foundation.layout.size
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import java.io.File
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import mhsn.wa_notes.R
 import mhsn.wa_notes.data.local.entity.NoteEntity
 import mhsn.wa_notes.ui.theme.MessageSentBubble
-import mhsn.wa_notes.ui.theme.MessageReceivedBubble
+import mhsn.wa_notes.util.Constants
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -61,12 +62,12 @@ fun ThreadDetailScreen(
                 title = {
                     Column {
                         Text(
-                            text = uiState.thread?.title ?: "Not Defteri",
+                            text = uiState.thread?.title ?: stringResource(R.string.thread_detail_default_title),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "${notes.size} not",
+                            text = stringResource(R.string.thread_detail_notes_count, notes.size),
                             style = MaterialTheme.typography.labelSmall
                         )
                     }
@@ -75,7 +76,7 @@ fun ThreadDetailScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Geri",
+                            contentDescription = stringResource(R.string.cd_back),
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
@@ -84,7 +85,7 @@ fun ThreadDetailScreen(
                     IconButton(onClick = onSearchClick) {
                         Icon(
                             Icons.Default.Search,
-                            contentDescription = "Thread İçinde Ara",
+                            contentDescription = stringResource(R.string.cd_thread_search),
                             tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
@@ -211,23 +212,23 @@ private fun NoteItem(
                                             .data(file)
                                             .crossfade(true)
                                             .build(),
-                                        contentDescription = "Fotoğraf",
+                                        contentDescription = stringResource(R.string.cd_photo),
                                         modifier = Modifier
-                                            .size(200.dp)
-                                            .clip(RoundedCornerShape(8.dp)),
+                                            .size(Constants.PHOTO_PREVIEW_SIZE_DP.dp)
+                                            .clip(RoundedCornerShape(Constants.SMALL_CORNER_RADIUS_DP.dp)),
                                         contentScale = ContentScale.Crop
                                     )
                                 } else {
                                     // Fallback if file doesn't exist
                                     Box(
                                         modifier = Modifier
-                                            .size(200.dp)
+                                            .size(Constants.PHOTO_PREVIEW_SIZE_DP.dp)
                                             .background(Color.Gray.copy(alpha = 0.3f))
-                                            .clip(RoundedCornerShape(8.dp)),
+                                            .clip(RoundedCornerShape(Constants.SMALL_CORNER_RADIUS_DP.dp)),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         Text(
-                                            text = "📷 Fotoğraf",
+                                            text = stringResource(R.string.note_type_photo),
                                             style = MaterialTheme.typography.bodyMedium,
                                             color = Color.Black,
                                             fontWeight = FontWeight.Bold
@@ -238,13 +239,13 @@ private fun NoteItem(
                                 // Fallback if no file path
                                 Box(
                                     modifier = Modifier
-                                        .size(200.dp)
+                                        .size(Constants.PHOTO_PREVIEW_SIZE_DP.dp)
                                         .background(Color.Gray.copy(alpha = 0.3f))
-                                        .clip(RoundedCornerShape(8.dp)),
+                                        .clip(RoundedCornerShape(Constants.SMALL_CORNER_RADIUS_DP.dp)),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
-                                        text = "📷 Fotoğraf",
+                                        text = stringResource(R.string.note_type_photo),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = Color.Black,
                                         fontWeight = FontWeight.Bold
@@ -252,7 +253,7 @@ private fun NoteItem(
                                 }
                             }
                             
-                            Spacer(modifier = Modifier.height(4.dp))
+                            Spacer(modifier = Modifier.height(Constants.SMALL_SPACING_DP.dp))
                             
                             // File name
                             note.filePath?.let { path ->
@@ -266,7 +267,7 @@ private fun NoteItem(
                     }
                     "video" -> {
                         Text(
-                            text = "🎥 Video",
+                            text = stringResource(R.string.note_type_video),
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold
@@ -281,7 +282,7 @@ private fun NoteItem(
                     }
                     "audio" -> {
                         Text(
-                            text = "🎵 Ses Kaydı",
+                            text = stringResource(R.string.note_type_audio),
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold
@@ -296,7 +297,7 @@ private fun NoteItem(
                     }
                     "file" -> {
                         Text(
-                            text = "📎 Dosya",
+                            text = stringResource(R.string.note_type_file),
                             style = MaterialTheme.typography.bodyMedium,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold
@@ -311,7 +312,7 @@ private fun NoteItem(
                     }
                 }
                 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(Constants.SMALL_SPACING_DP.dp))
                 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -323,7 +324,7 @@ private fun NoteItem(
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.DarkGray
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(Constants.SMALL_SPACING_DP.dp))
                     // Checkmark for saved
                     Text(
                         text = "✓",
@@ -356,7 +357,7 @@ private fun MessageInputBar(
             IconButton(onClick = onAttachClick) {
                 Icon(
                     Icons.Default.Add,
-                    contentDescription = "Dosya Ekle",
+                    contentDescription = stringResource(R.string.cd_add_file),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -365,7 +366,7 @@ private fun MessageInputBar(
                 value = messageText,
                 onValueChange = onMessageTextChange,
                 modifier = Modifier.weight(1f),
-                placeholder = { Text("Mesaj yazın...") },
+                placeholder = { Text(stringResource(R.string.thread_detail_message_placeholder)) },
                 colors = TextFieldDefaults.colors(
                     focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
                     unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -387,7 +388,7 @@ private fun MessageInputBar(
             ) {
                 Icon(
                     Icons.AutoMirrored.Filled.Send,
-                    contentDescription = "Gönder",
+                    contentDescription = stringResource(R.string.cd_send),
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
@@ -404,13 +405,13 @@ private fun EmptyNotesState(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Henüz not yok",
+            text = stringResource(R.string.thread_detail_empty_title),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(Constants.MEDIUM_SPACING_DP.dp))
         Text(
-            text = "İlk notunuzu eklemek için aşağıdaki mesaj kutusunu kullanın",
+            text = stringResource(R.string.thread_detail_empty_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -418,7 +419,7 @@ private fun EmptyNotesState(
 }
 
 private fun formatMessageTime(timestamp: Long): String {
-    return SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(timestamp))
+    return SimpleDateFormat(Constants.TIME_FORMAT_HH_MM, Locale.getDefault()).format(Date(timestamp))
 }
 
 // WhatsApp Style Attachment Menu

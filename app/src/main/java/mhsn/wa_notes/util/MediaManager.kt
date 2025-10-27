@@ -18,7 +18,7 @@ import java.util.Locale
 
 class MediaManager(private val context: Context) {
     
-    private val internalStorageDir = File(context.filesDir, "media")
+    private val internalStorageDir = File(context.filesDir, Constants.MEDIA_DIR_NAME)
     
     init {
         if (!internalStorageDir.exists()) {
@@ -67,9 +67,9 @@ class MediaManager(private val context: Context) {
     }
     
     private fun generateFileName(uri: Uri): String {
-        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val timestamp = SimpleDateFormat(Constants.TIMESTAMP_FORMAT, Locale.getDefault()).format(Date())
         val extension = getFileExtension(uri) ?: "file"
-        return "media_${timestamp}.${extension}"
+        return "${Constants.FILE_NAME_PREFIX}${timestamp}.${extension}"
     }
     
     private fun getFileExtension(uri: Uri): String? {
@@ -77,12 +77,12 @@ class MediaManager(private val context: Context) {
     }
     
     fun getMediaType(uri: Uri): String {
-        val mimeType = context.contentResolver.getType(uri) ?: return "file"
+        val mimeType = context.contentResolver.getType(uri) ?: return Constants.NOTE_TYPE_FILE
         return when {
-            mimeType.startsWith("image/") -> "image"
-            mimeType.startsWith("video/") -> "video"
-            mimeType.startsWith("audio/") -> "audio"
-            else -> "file"
+            mimeType.startsWith(Constants.MIME_TYPE_IMAGE_PREFIX) -> Constants.NOTE_TYPE_IMAGE
+            mimeType.startsWith(Constants.MIME_TYPE_VIDEO_PREFIX) -> Constants.NOTE_TYPE_VIDEO
+            mimeType.startsWith(Constants.MIME_TYPE_AUDIO_PREFIX) -> Constants.NOTE_TYPE_AUDIO
+            else -> Constants.NOTE_TYPE_FILE
         }
     }
 }

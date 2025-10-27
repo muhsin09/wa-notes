@@ -18,6 +18,7 @@ import mhsn.wa_notes.data.repository.NoteRepositoryImpl
 import mhsn.wa_notes.data.repository.ThreadRepositoryImpl
 import mhsn.wa_notes.data.local.AppDatabase
 import android.content.Context
+import mhsn.wa_notes.util.Constants
 
 data class ThreadDetailUiState(
     val thread: ThreadEntity? = null,
@@ -85,7 +86,7 @@ class ThreadDetailViewModel(
                 val thread = threadRepository.getThreadById(threadId)
                 _uiState.update { it.copy(thread = thread, isLoading = false) }
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Thread yüklenemedi: ${e.message}", isLoading = false) }
+                _uiState.update { it.copy(error = "${Constants.ERROR_THREAD_LOAD_FAILED}: ${e.message}", isLoading = false) }
             }
         }
     }
@@ -112,7 +113,7 @@ class ThreadDetailViewModel(
                 
                 _uiState.update { it.copy(messageText = "") }
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Not gönderilemedi: ${e.message}") }
+                _uiState.update { it.copy(error = "${Constants.ERROR_NOTE_SEND_FAILED}: ${e.message}") }
             }
         }
     }
@@ -135,7 +136,7 @@ class ThreadDetailViewModel(
                     threadRepository.updateThread(thread.copy(updatedAt = System.currentTimeMillis()))
                 }
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Medya gönderilemedi: ${e.message}") }
+                _uiState.update { it.copy(error = "${Constants.ERROR_MEDIA_SEND_FAILED}: ${e.message}") }
             }
         }
     }
@@ -146,7 +147,7 @@ class ThreadDetailViewModel(
                 val updatedNote = note.copy(updatedAt = System.currentTimeMillis())
                 noteRepository.updateNote(updatedNote)
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Not güncellenemedi: ${e.message}") }
+                _uiState.update { it.copy(error = "${Constants.ERROR_NOTE_UPDATE_FAILED}: ${e.message}") }
             }
         }
     }
@@ -156,7 +157,7 @@ class ThreadDetailViewModel(
             try {
                 noteRepository.deleteNote(note)
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Not silinemedi: ${e.message}") }
+                _uiState.update { it.copy(error = "${Constants.ERROR_NOTE_DELETE_FAILED}: ${e.message}") }
             }
         }
     }

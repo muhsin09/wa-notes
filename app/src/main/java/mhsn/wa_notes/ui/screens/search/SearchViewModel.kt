@@ -17,6 +17,7 @@ import mhsn.wa_notes.data.repository.NoteRepositoryImpl
 import mhsn.wa_notes.data.repository.ThreadRepositoryImpl
 import mhsn.wa_notes.data.local.AppDatabase
 import android.content.Context
+import mhsn.wa_notes.util.Constants
 
 data class SearchUiState(
     val query: String = "",
@@ -142,7 +143,7 @@ class SearchViewModel(
         } catch (e: Exception) {
             _uiState.value = _uiState.value.copy(
                 isLoading = false,
-                error = "Arama sırasında hata oluştu: ${e.message}"
+                error = "${Constants.ERROR_SEARCH_FAILED}: ${e.message}"
             )
             emptyList()
         }

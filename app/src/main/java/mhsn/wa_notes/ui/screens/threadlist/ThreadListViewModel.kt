@@ -15,6 +15,7 @@ import mhsn.wa_notes.data.local.entity.ThreadEntity
 import mhsn.wa_notes.data.repository.ThreadRepositoryImpl
 import mhsn.wa_notes.data.local.AppDatabase
 import android.content.Context
+import mhsn.wa_notes.util.Constants
 
 data class ThreadListUiState(
     val threads: List<ThreadEntity> = emptyList(),
@@ -79,7 +80,7 @@ class ThreadListViewModel(
                 )
                 threadRepository.insertThread(newThread)
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Thread oluşturulamadı: ${e.message}") }
+                _uiState.update { it.copy(error = "${Constants.ERROR_THREAD_CREATE_FAILED}: ${e.message}") }
             }
         }
     }
@@ -90,7 +91,7 @@ class ThreadListViewModel(
                 val updatedThread = thread.copy(updatedAt = System.currentTimeMillis())
                 threadRepository.updateThread(updatedThread)
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Thread güncellenemedi: ${e.message}") }
+                _uiState.update { it.copy(error = "${Constants.ERROR_THREAD_UPDATE_FAILED}: ${e.message}") }
             }
         }
     }
@@ -100,7 +101,7 @@ class ThreadListViewModel(
             try {
                 threadRepository.deleteThread(thread)
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Thread silinemedi: ${e.message}") }
+                _uiState.update { it.copy(error = "${Constants.ERROR_THREAD_DELETE_FAILED}: ${e.message}") }
             }
         }
     }
@@ -115,14 +116,14 @@ class ThreadListViewModel(
                 val existingThreads = threadRepository.getAllThreads()
                 if (existingThreads.isEmpty()) {
                     val defaultThread = ThreadEntity(
-                        title = "Varsayılan Notlar",
+                        title = Constants.DEFAULT_THREAD_TITLE,
                         createdAt = System.currentTimeMillis(),
                         updatedAt = System.currentTimeMillis()
                     )
                     threadRepository.insertThread(defaultThread)
                 }
             } catch (e: Exception) {
-                _uiState.update { it.copy(error = "Varsayılan thread oluşturulamadı: ${e.message}") }
+                _uiState.update { it.copy(error = "${Constants.ERROR_DEFAULT_THREAD_CREATE_FAILED}: ${e.message}") }
             }
         }
     }

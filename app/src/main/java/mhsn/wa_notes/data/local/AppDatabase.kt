@@ -8,6 +8,7 @@ import mhsn.wa_notes.data.local.dao.NoteDao
 import mhsn.wa_notes.data.local.dao.ThreadDao
 import mhsn.wa_notes.data.local.entity.NoteEntity
 import mhsn.wa_notes.data.local.entity.ThreadEntity
+import mhsn.wa_notes.util.Constants
 
 @Database(
     entities = [ThreadEntity::class, NoteEntity::class],
@@ -26,9 +27,9 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "wa_notes.db"
+                    Constants.DATABASE_NAME
                 )
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration(true)
                 .build().also { INSTANCE = it }
             }
     }
