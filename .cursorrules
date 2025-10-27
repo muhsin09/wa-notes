@@ -1,0 +1,149 @@
+# WA Notes - Cursor AI Kuralları
+
+## Genel İlkeler
+- Tüm yanıtlar Türkçe olmalıdır
+- Modern Android geliştirme best practices kullan
+- Kod okunabilirliğine ve maintainability'ye öncelik ver
+- Performans ve memory management'a dikkat et
+
+## Teknoloji Stack
+- **Dil**: Kotlin
+- **UI**: Jetpack Compose (Material 3)
+- **Mimari**: MVVM + Repository Pattern
+- **DI**: Hilt (Dagger)
+- **Database**: Room
+- **Async**: Kotlin Coroutines + Flow
+- **Navigation**: Jetpack Compose Navigation
+
+## Kod Stil Kuralları
+
+### Kotlin
+- Kotlin official coding conventions kullan
+- Data class'ları immutable tercih et
+- Null safety'yi tam kullan (`?.`, `?:`, `!!` dikkatli)
+- Extension functions mantıklı yerlerde kullan
+- Default parameter values tercih et
+
+### Compose
+- @Composable fonksiyonlar PascalCase olmalı
+- State hoisting uygula (state yukarıda, event aşağıda)
+- remember, rememberSaveable doğru kullan
+- Preview'ler ekle (@Preview)
+- Modifier her zaman parametre olarak al
+- Side effects dikkatli kullan (LaunchedEffect, DisposableEffect)
+
+### MVVM Pattern
+- ViewModel'ler UI logic içermeli, business logic repository'de
+- ViewModel'de UI state tek bir sealed class/data class ile yönet
+- Events için Channel veya SharedFlow kullan
+- ViewModel'de Android Context dependency'si olmamalı
+
+### Repository Pattern
+- Interface + Implementation pattern
+- Suspend functions veya Flow dön
+- Error handling repository layer'da yap
+- Data source abstractions (local/remote)
+
+## Proje Spesifik Kurallar
+
+### Database
+- Room Entity'ler data klasöründe
+- DAO'lar suspend function veya Flow döner
+- Foreign key constraints kullan
+- Index'ler performans için ekle
+- Migration strategy belirle
+
+### Dosya Yapısı
+```
+app/src/main/java/mhsn/wa_notes/
+├── WaNotesApplication.kt
+├── di/                 # Hilt modules
+├── data/
+│   ├── local/         # Room entities, DAOs
+│   └── repository/    # Repository implementations
+├── domain/            # Business logic, use cases
+├── ui/
+│   ├── screens/       # Screen composables + ViewModels
+│   ├── components/    # Reusable composables
+│   ├── navigation/    # Nav graph
+│   └── theme/         # Theme, colors, typography
+└── util/              # Helper classes, extensions
+```
+
+### İsimlendirme
+- Activity: `MainActivity`
+- Composable Screen: `ThreadListScreen`
+- ViewModel: `ThreadListViewModel`
+- Repository Interface: `ThreadRepository`
+- Repository Impl: `ThreadRepositoryImpl`
+- DAO: `ThreadDao`
+- Entity: `ThreadEntity`
+- Hilt Module: `AppModule`, `DatabaseModule`
+
+### UI/UX Gereksinimleri
+- WhatsApp benzeri görünüm (yeşil tonlar: #075E54, #25D366)
+- Material 3 components kullan
+- Dark mode support
+- Accessibility (content descriptions)
+- Loading states göster
+- Error handling UI'da
+
+### Offline-First
+- Network dependency olmamalı
+- Tüm işlemler local database
+- File storage internal storage'da
+- Background işlemler için WorkManager (gerekirse)
+
+### Performance
+- LazyColumn/LazyRow kullan (RecyclerView yerine)
+- remember ile recomposition minimize et
+- derivedStateOf uygun yerlerde
+- Image loading Coil ile (gerekirse)
+- Paging (çok veri varsa)
+
+## Hata Yönetimi
+- Try-catch blokları meaningful error messages
+- Result/sealed class pattern error handling için
+- User-friendly error messages (Türkçe)
+- Logging (development) - Timber kullanabilirsin
+
+## Testing (İleride)
+- Unit tests: ViewModel, Repository
+- UI tests: Compose UI test
+- Mock: MockK
+- Test coverage hedef: %70+
+
+## Commit Messages
+- Türkçe veya İngilizce (tutarlı ol)
+- Conventional commits: `feat:`, `fix:`, `refactor:`, etc.
+- Açıklayıcı ve kısa
+
+## Özel Notlar
+- Kullanıcı verileri şifrelenmeyecek (PRD'ye göre)
+- Yedekleme ZIP formatında
+- Merge yedekleme: mevcut verilerle birleştir
+- Not tipleri: text, image, video, audio, file
+- Varsayılan thread otomatik oluştur
+- Tek checkmark (✓) kayıt başarılı göstergesi
+
+## Code Review Checklist
+- [ ] Null safety kontrol edildi mi?
+- [ ] Memory leak riski var mı?
+- [ ] Error handling uygun mu?
+- [ ] Compose best practices uygulandı mı?
+- [ ] ViewModel Android dependencies içermiyor mu?
+- [ ] String resources kullanıldı mı (hardcoded text yok)?
+- [ ] Performance optimization yapıldı mı?
+- [ ] Accessibility düşünüldü mü?
+- [ ] Dark mode test edildi mi?
+
+## Yasaklar
+- ❌ `!!` operatörü dikkatli kullan, mümkünse kullanma
+- ❌ GlobalScope.launch kullanma
+- ❌ findViewById kullanma (Compose kullan)
+- ❌ Thread.sleep() kullanma
+- ❌ Hardcoded strings (strings.xml kullan)
+- ❌ Context leaks
+- ❌ Network calls (offline app)
+- ❌ God classes (büyük sınıflar böl)
+

@@ -1,3 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">wa-notes</string>
+    <!-- App Name -->
+    <string name="app_name">WA Notes</string>
+    
+    <!-- Navigation -->
+    <string name="nav_back">Geri</string>
+    <string name="nav_send">Gönder</string>
+    <string name="nav_search">Ara</string>
+    <string name="nav_menu">Menü</string>
+    <string name="nav_add">Ekle</string>
+    <string name="nav_cancel">İptal</string>
+    <string name="nav_create">Oluştur</string>
+    <string name="nav_retry">Tekrar Dene</string>
+    <string name="nav_clear">Temizle</string>
+    
+    <!-- Thread List -->
+    <string name="thread_list_title">WA Notes</string>
+    <string name="thread_list_empty_title">Henüz not defteriniz yok</string>
+    <string name="thread_list_empty_subtitle">Yeni bir not defteri oluşturmak için + butonuna tıklayın</string>
+    <string name="thread_list_new_thread">Yeni Thread</string>
+    <string name="thread_list_notes">Notlar</string>
+    <string name="thread_list_now">Şimdi</string>
+    <string name="thread_list_minutes_ago">dk</string>
+    
+    <!-- Thread Detail -->
+    <string name="thread_detail_default_title">Not Defteri</string>
+    <string name="thread_detail_notes_count">%d not</string>
+    <string name="thread_detail_empty_title">Henüz not yok</string>
+    <string name="thread_detail_empty_subtitle">İlk notunuzu eklemek için aşağıdaki mesaj kutusunu kullanın</string>
+    <string name="thread_detail_message_placeholder">Mesaj yazın…</string>
+    <string name="thread_detail_add_file">Dosya Ekle</string>
+    <string name="thread_detail_thread_search">Thread İçinde Ara</string>
+    
+    <!-- Search -->
+    <string name="search_title_all">Tüm Notlarda Ara</string>
+    <string name="search_title_thread">Thread İçinde Ara</string>
+    <string name="search_placeholder">Notlarda ara…</string>
+    <string name="search_empty_title">Notlarınızda arama yapın</string>
+    <string name="search_empty_subtitle">Arama yapmak için yukarıdaki kutuya yazın</string>
+    <string name="search_no_results_title">Sonuç bulunamadı</string>
+    <string name="search_no_results_subtitle">Farklı anahtar kelimeler deneyin</string>
+    <string name="search_scope_all">Tüm Notlar</string>
+    <string name="search_scope_thread">Bu Thread</string>
+    
+    <!-- Add Thread Dialog -->
+    <string name="add_thread_title">Yeni Not Defteri</string>
+    <string name="add_thread_label">Başlık</string>
+    
+    <!-- Attachment Menu -->
+    <string name="attachment_title">Ekle</string>
+    <string name="attachment_file">Dosya</string>
+    <string name="attachment_file_subtitle">Belge, PDF, vb.</string>
+    <string name="attachment_photo_video">Fotoğraf ve Video</string>
+    <string name="attachment_photo_video_subtitle">Galeriden seç</string>
+    
+    <!-- Note Types -->
+    <string name="note_type_photo">📷 Fotoğraf</string>
+    <string name="note_type_video">🎥 Video</string>
+    <string name="note_type_audio">🎵 Ses Kaydı</string>
+    <string name="note_type_file">📎 Dosya</string>
+    
+    <!-- Error Messages -->
+    <string name="error_thread_load_failed">Thread yüklenemedi: %s</string>
+    <string name="error_note_send_failed">Not gönderilemedi: %s</string>
+    <string name="error_media_send_failed">Medya gönderilemedi: %s</string>
+    <string name="error_thread_create_failed">Thread oluşturulamadı: %s</string>
+    <string name="error_thread_update_failed">Thread güncellenemedi: %s</string>
+    <string name="error_thread_delete_failed">Thread silinemedi: %s</string>
+    <string name="error_note_update_failed">Not güncellenemedi: %s</string>
+    <string name="error_note_delete_failed">Not silinemedi: %s</string>
+    <string name="error_search_failed">Arama sırasında hata oluştu: %s</string>
+    <string name="error_default_thread_create_failed">Varsayılan thread oluşturulamadı: %s</string>
+    <string name="error_title">Hata</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_back">Geri</string>
+    <string name="cd_send">Gönder</string>
+    <string name="cd_search">Ara</string>
+    <string name="cd_menu">Menü</string>
+    <string name="cd_add_file">Dosya Ekle</string>
+    <string name="cd_new_thread">Yeni Thread</string>
+    <string name="cd_thread_search">Thread İçinde Ara</string>
+    <string name="cd_photo">Fotoğraf</string>
+    <string name="cd_clear">Temizle</string>
+    
+    <!-- Default Values -->
+    <string name="default_thread_title">Varsayılan Notlar</string>
 </resources>
